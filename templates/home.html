@@ -51,19 +51,24 @@
         <div class="col-md-5 col-lg-5">
           <h5>Completed Tasks</h5>
           <!-- List of all the tasks that have completed -->
+          {% for completedTask in completedTasks %}
           <div class="card m-1">
-            <div class="card-body">This is the completed task.</div>
+            <div class="card-body">{{ completedTask }}</div>
           </div>
+          {% endfor %}
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-6 p-0" style="position: absolute; bottom: 50px">
           <!-- To Do Form -->
-          <form action="">
+          <form action="{% url 'addTask' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
               <span style="display: flex">
-                <input type="text" class="form-control" placeholder="Add a task" />
-                <button class="btn btn-primary" style="width: 200px"><i class="fa fa-plus"></i> Add</button>
+                <input type="text" class="form-control" placeholder="Add a task" name="task" />
+                <button type="submit" class="btn btn-primary" style="width: 200px">
+                  <i class="fa fa-plus"></i> Add
+                </button>
               </span>
             </div>
           </form>
