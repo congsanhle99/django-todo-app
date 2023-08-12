@@ -6,8 +6,6 @@ from .models import Task
 
 
 def addTask(request):
-    # context = {}
-    # render(request, "", context)
     task = request.POST['task']
     Task.objects.create(task=task)
     return redirect("home")
@@ -37,3 +35,9 @@ def edit_task(request, pk):
     else:
         context = {"get_task": get_task}
         return render(request, "edit.html", context)
+
+
+def delete_task(request, pk):
+    get_task = get_object_or_404(Task, pk=pk)
+    get_task.delete()
+    return redirect("home")
