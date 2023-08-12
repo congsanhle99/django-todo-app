@@ -1,13 +1,17 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Task
+from django.contrib import messages
 
 # Create your views here.
 
 
 def addTask(request):
     task = request.POST['task']
-    Task.objects.create(task=task)
+    if len(task) == 0:
+        messages.error(request, 'Input not valid!!!')
+    else:
+        Task.objects.create(task=task)
     return redirect("home")
 
 
